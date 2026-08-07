@@ -10,6 +10,7 @@
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Nunito+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 56"><rect width="120" height="56" fill="#1e1b3a"></rect><text x="60" y="33" font-family="sans-serif" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">SS</text></svg></template>
   <style>
     body { margin: 0; background: oklch(97% 0.014 75); font-family: 'Nunito Sans', sans-serif; }
     a { color: {{ accentColor }}; text-decoration: none; }
@@ -103,6 +104,12 @@
           <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="5">
             <div onClick="{{ proj.open }}" style="cursor: pointer; grid-column: {{ proj.span }}; border-radius: 20px; overflow: hidden; background: oklch(99% 0.008 70); border: 1px solid oklch(88% 0.012 75); transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; box-shadow: 0 1px 2px oklch(20% 0.01 260 / 0.04); position: relative;" style-hover="transform: rotate({{ proj.rot }}) scale(1.015); box-shadow: 0 18px 34px oklch(20% 0.02 260 / 0.14); border-color: {{ accentColor }};">
               <div style="position: absolute; top: 16px; right: 16px; z-index: 2; font-family: 'Sora', sans-serif; font-size: 46px; font-weight: 800; color: oklch(100% 0 0 / 0.5); line-height: 1;">{{ proj.num }}</div>
+              <sc-if value="{{ proj.passcode }}" hint-placeholder-val="{{ false }}">
+                <div style="position: absolute; top: 16px; left: 16px; z-index: 2; display: flex; align-items: center; gap: 5px; background: oklch(20% 0.01 260 / 0.72); color: white; font-size: 11px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; padding: 5px 10px 5px 8px; border-radius: 999px;">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+                  Locked
+                </div>
+              </sc-if>
               <div style="height: 196px; background: linear-gradient(150deg, {{ proj.stripeA }}, {{ proj.stripeB }}); display: flex; align-items: center; justify-content: center;">
                 <span style="font-family: monospace; font-size: 11.5px; color: oklch(30% 0.02 260 / 0.55); background: oklch(99% 0.008 70 / 0.8); padding: 4px 10px; border-radius: 6px;">{{ proj.imageLabel }}</span>
               </div>
@@ -120,10 +127,20 @@
     <sc-if value="{{ isCaseStudy }}" hint-placeholder-val="{{ false }}">
       <section style="padding: 96px 56px 108px; max-width: 860px; margin: 0 auto; animation: fadeUp 0.4s ease;">
         <span onClick="{{ goWorkList }}" style="cursor: pointer; font-size: 14px; font-weight: 600; color: {{ accentColor }}; display: inline-block; margin-bottom: 32px;">← All work</span>
-        
-        
 
-        
+        <sc-if value="{{ activeProject.isLocked }}" hint-placeholder-val="{{ false }}">
+          <div style="border-radius: 18px; padding: 64px 40px; background: oklch(97% 0.01 260); border: 1px solid oklch(88% 0.012 75); text-align: center; max-width: 380px; margin: 40px auto;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: {{ accentColor }}; margin-bottom: 10px;">Protected case study</div>
+            <h2 style="font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; margin: 0 0 18px;">Enter passcode to view</h2>
+            <input type="password" value="{{ passInput }}" onChange="{{ setPassInput }}" placeholder="Passcode" style="width: 100%; box-sizing: border-box; padding: 12px 14px; font-size: 15px; border-radius: 10px; border: 1px solid oklch(80% 0.01 260); margin-bottom: 14px;" />
+            <button onClick="{{ activeProject.submitPasscode }}" style="width: 100%; padding: 12px 14px; font-size: 15px; font-weight: 700; color: white; background: {{ accentColor }}; border: none; border-radius: 10px; cursor: pointer;">Unlock</button>
+            <sc-if value="{{ passError }}" hint-placeholder-val="{{ false }}">
+              <div style="color: oklch(50% 0.2 25); font-size: 13.5px; margin-top: 12px;">Incorrect passcode — try again.</div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ !activeProject.isLocked }}" hint-placeholder-val="{{ true }}">
 
         <sc-if value="{{ !activeProject.hasSections }}" hint-placeholder-val="{{ false }}">
           <div style="border-radius: 18px; margin-bottom: 44px; background: linear-gradient(150deg, {{ activeProject.stripeA }}, {{ activeProject.stripeB }}); position: relative; overflow: hidden; display: flex; align-items: stretch; min-height: 300px;">
@@ -288,6 +305,7 @@
             </sc-for>
           </div>
         </sc-if>
+        </sc-if>
       </section>
     </sc-if>
 
@@ -387,13 +405,13 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1400, &quot;height&quot;: 900}, &quot;accentColor&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;oklch(55% 0.19 258)&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;oklch(55% 0.19 258)&quot;, &quot;oklch(55% 0.16 30)&quot;, &quot;oklch(55% 0.15 145)&quot;, &quot;oklch(55% 0.17 320)&quot;]}, &quot;heroTagline&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;I'm a Full-Stack UX Designer who believes great design makes life simpler. From strategy and research to polished interfaces, I transform complex problems into intuitive experiences that help people accomplish more with less effort. I'm driven by empathy and opportunity to create meaningful impact\u2014one thoughtful design decision at a time.&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;availableForWork&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;}}">
 class Component extends DCLogic {
-  state = { view: 'home', activeId: null };
+  state = { view: 'home', activeId: null, unlockedIds: {}, passInput: '', passError: false };
   scrollRowLeft = (e) => { const row = e.currentTarget.parentElement.querySelector('.img-row-scroll'); if (row) row.scrollBy({ left: -360, behavior: 'smooth' }); };
   scrollRowRight = (e) => { const row = e.currentTarget.parentElement.querySelector('.img-row-scroll'); if (row) row.scrollBy({ left: 360, behavior: 'smooth' }); };
 
   projectsData = [
     { id: 'p6', tag: 'Verizon · Contact Center Tools', title: 'Call Transfer Tool Evolution', summary: 'Re-imagined the call transfer tool for Verizon contact center agents, replacing a manual, error-prone workflow with a smart, context-aware experience.',
-      role: 'Researcher, Designer', timeline: '12 Weeks', team: 'Tool Evolution to simplify Call Transfers',
+      role: 'Researcher, Designer', timeline: '12 Weeks', team: 'Tool Evolution to simplify Call Transfers', passcode: 'verizon2025',
       problem: 'High Average Handle Time (AHT) and a lack of data on transfer reasons were driving down CSAT scores and creating operational blind spots for Verizon\u2019s contact center.',
       process: 'A Discover \u2192 Define \u2192 Ideate \u2192 Design process combining stakeholder interviews, call listening, contextual inquiry, and journey mapping to expose exactly where transfers were breaking down.',
       solution: 'A redesigned Call Transfer Initiator with smart department suggestions, auto-verified customer details, and AI-generated transfer notes \u2014 removing manual typing and guesswork for agents.',
@@ -419,7 +437,7 @@ class Component extends DCLogic {
         { type: 'image', src: 'assets/calltransfer-flaws-initiator-v2.png' },
         { type: 'subheading', text: 'Flaws in the Call Transfer Receiver' },
         { type: 'image', src: 'assets/calltransfer-flaws-receiver-v2.png' },
-        { type: 'heading', text: 'Directions' },
+        { type: 'heading', text: 'Design Directions' },
         { type: 'directioncard', color: 'oklch(80% 0.1 145)', title: 'Continuous', items: ['there is no break in the customer experience', 'persistent data hand-off', 'a sense of shared workspace for the agents'] },
         { type: 'directioncard', color: 'oklch(80% 0.08 240)', title: 'Clear', items: ['no ambiguity should be there for both agents and customers even when it is a small thing like waiting time'] },
         { type: 'directioncard', color: 'oklch(80% 0.1 55)', title: 'Warm', items: ['avoiding the technical loop and making it more human interactive', 'indulgence towards warm transfers models'] },
@@ -777,7 +795,15 @@ class Component extends DCLogic {
   goHome = () => this.setState({ view: 'home', activeId: null });
   goWorkList = () => this.setState({ view: 'work', activeId: null });
   goAbout = () => this.setState({ view: 'about', activeId: null });
-  openProject = (id) => this.setState({ view: 'case', activeId: id });
+  openProject = (id) => this.setState({ view: 'case', activeId: id, passInput: '', passError: false });
+  setPassInput = (e) => this.setState({ passInput: e.target.value, passError: false });
+  checkPasscode = (project) => () => {
+    if (this.state.passInput.trim().toLowerCase() === (project.passcode || '').toLowerCase()) {
+      this.setState(s => ({ unlockedIds: { ...s.unlockedIds, [project.id]: true }, passError: false }));
+    } else {
+      this.setState({ passError: true });
+    }
+  };
 
   renderVals() {
     const accentColor = this.props.accentColor ?? 'oklch(55% 0.19 258)';
@@ -789,6 +815,8 @@ class Component extends DCLogic {
     const rots = [-1.2, 1, -0.8, 1.3, -0.5];
     const projects = this.projectsData.map((p, i) => ({ ...p, open: () => this.openProject(p.id), span: spans[i % spans.length], rot: rots[i % rots.length] + 'deg', num: '0' + (i + 1) }));
     let activeProject = projects.find(p => p.id === activeId) || projects[0];
+    const isLocked = !!activeProject.passcode && !this.state.unlockedIds[activeProject.id];
+    activeProject = { ...activeProject, isLocked, submitPasscode: this.checkPasscode(activeProject) };
     if (activeProject.sections) {
       const sectionList = activeProject.sections.map(s => ({
         ...s,
@@ -811,7 +839,7 @@ class Component extends DCLogic {
       homeUnderline: underline(view === 'home'), workUnderline: underline(view === 'work' || view === 'case'), aboutUnderline: underline(view === 'about'),
       homeTextColor: textColor(view === 'home'), workTextColor: textColor(view === 'work' || view === 'case'), aboutTextColor: textColor(view === 'about'),
       goHome: this.goHome, goWorkList: this.goWorkList, goAbout: this.goAbout,
-      projects, activeProject,
+      projects, activeProject, passInput: this.state.passInput, passError: this.state.passError, setPassInput: this.setPassInput,
       experience: this.experienceData,
       education: this.educationData,
       recognitions: this.recognitionsData,
