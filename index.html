@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Nunito+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: oklch(97% 0.014 75); font-family: 'Nunito Sans', sans-serif; }
+    a { color: {{ accentColor }}; text-decoration: none; }
+    a:hover { opacity: 0.75; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</helmet>
+
+<div style="min-height: 100vh; display: flex; flex-direction: column; color: oklch(18% 0.012 260);">
+
+  <!-- NAV -->
+  <nav style="position: static; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px 56px; background: oklch(97% 0.014 75 / 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid oklch(88% 0.014 75)">
+    <div onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 13px; cursor: pointer;">
+      <div style="width: 37px; height: 36px; border-radius: 5px; background: oklch(15% 0.01 260); display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+        <img src="assets/logo.png" alt="Soma Sarkar logo" style="width: 24px; height: 26px; object-fit: contain; display: block; margin: auto">
+      </div>
+      <div style="font-family: 'Sora', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.02em;">Soma Sarkar</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 40px;">
+      <span onClick="{{ goHome }}" style="cursor: pointer; font-size: 14.5px; font-weight: 600; color: {{ homeTextColor }}; border-bottom: 2px solid {{ homeUnderline }}; padding-bottom: 4px;">Home</span>
+      <span onClick="{{ goWorkList }}" style="cursor: pointer; font-size: 14.5px; font-weight: 600; color: {{ workTextColor }}; border-bottom: 2px solid {{ workUnderline }}; padding-bottom: 4px;">Work</span>
+      <span onClick="{{ goAbout }}" style="cursor: pointer; font-size: 14.5px; font-weight: 600; color: {{ aboutTextColor }}; border-bottom: 2px solid {{ aboutUnderline }}; padding-bottom: 4px;">About</span>
+    </div>
+  </nav>
+
+  <main style="flex: 1;">
+
+    <!-- HOME VIEW -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <section style="padding: 100px 56px 88px; max-width: 1120px; margin: 0 auto; animation: fadeUp 0.5s ease; position: relative; display: flex; align-items: center; gap: 56px; background-color: #FBF4EB">
+        <div style="flex: 1; min-width: 0; width: 100%;">
+          <sc-if value="{{ availableForWork }}" hint-placeholder-val="{{ true }}">
+            
+          </sc-if>
+          
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 56px; line-height: 1.04; letter-spacing: -0.03em; margin: 0 0 22px; font-weight: 800; position: relative; display: inline-block;">
+            Hi,&nbsp; I'm <span>Soma.</span><br>
+            <svg width="370" height="24" viewBox="0 0 370 24" style="position: absolute; left: 2px; bottom: -20px;">
+              <defs>
+                <filter id="crayonTexture"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="noise" scale="3"></feDisplacementMap></filter>
+              </defs>
+              <path d="M3 12 Q 64 2, 128 11 T 260 10 T 367 7" stroke="{{ accentColor }}" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.55" filter="url(#crayonTexture)"></path>
+              <path d="M4 11 Q 65 3, 129 10 T 259 9 T 366 6" stroke="{{ accentColor }}" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.85" filter="url(#crayonTexture)"></path>
+            </svg>
+          </h1>
+          <p style="font-size: 19px; line-height: 1.6; color: oklch(38% 0.012 260); max-width: 100%; width: 100%; margin: 28px 0 14px;">{{ heroTagline }}</p>
+          
+          <div style="display: flex; gap: 14px;">
+            
+            
+          </div><p style="font-size: 19px; color: oklch(50% 0.01 260); margin: 20px 0 40px">Based in Hyderabad, Telangana · Currently a UX Designer 2 at <span style="font-weight: 800; color: {{ accentColor }}">Verizon</span> | Ex <span style="font-weight: 800; color: {{ accentColor }}">Salesforce</span></p>
+          <a href="https://drive.google.com/file/d/1kfoW5C5D8v_J2F_XFwdI38t_q5mG-1zE/view?usp=sharing" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; background: transparent; color: oklch(15% 0.01 260); padding: 12px 23px; border-radius: 100px; font-size: 14.5px; font-weight: 600; border: 1.5px solid oklch(15% 0.01 260 / 0.35); margin-bottom: 0;" style-hover="background: oklch(15% 0.01 260 / 0.06);">Résumé <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1.5px;"><path d="M12 3v13m0 0-4.5-4.5M12 16l4.5-4.5"></path><path d="M4 20h16"></path></svg></a>
+        </div>
+        
+      </section>
+
+      <div style="max-width: 1120px; margin: 0 auto; padding: 0 56px;">
+        <div style="height: 1px; background-image: repeating-linear-gradient(90deg, oklch(80% 0.012 75) 0 6px, transparent 6px 11px);"></div>
+      </div>
+
+      <section style="padding: 44px 56px 108px; max-width: 1120px; margin: 0 auto;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 30px;">
+          <h2 style="font-family: 'Sora', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: oklch(45% 0.01 260); font-weight: 700; margin: 0;">WORK SAMPLES</h2>
+          
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px;">
+          <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="5">
+            <div onClick="{{ proj.open }}" style="cursor: pointer; grid-column: {{ proj.span }}; border-radius: 20px; overflow: hidden; background: oklch(99% 0.008 70); border: 1px solid oklch(88% 0.012 75); transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; box-shadow: 0 1px 2px oklch(20% 0.01 260 / 0.04); position: relative;" style-hover="transform: rotate({{ proj.rot }}) scale(1.015); box-shadow: 0 18px 34px oklch(20% 0.02 260 / 0.14); border-color: {{ accentColor }};">
+              <div style="position: absolute; top: 16px; right: 16px; z-index: 2; font-family: 'Sora', sans-serif; font-size: 46px; font-weight: 800; color: oklch(100% 0 0 / 0.5); line-height: 1;">{{ proj.num }}</div>
+              <div style="height: 200px; background: linear-gradient(150deg, {{ proj.stripeA }}, {{ proj.stripeB }}); display: flex; align-items: center; justify-content: center; position: relative;">
+                <span style="font-family: monospace; font-size: 11.5px; letter-spacing: 0.02em; color: oklch(30% 0.02 260 / 0.55); background: oklch(99% 0.008 70 / 0.8); padding: 4px 10px; border-radius: 6px;">{{ proj.imageLabel }}</span>
+              </div>
+              <div style="padding: 24px 26px 28px;">
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: {{ accentColor }}; margin-bottom: 10px;">{{ proj.tag }}</div>
+                <div style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 9px; letter-spacing: -0.01em;">{{ proj.title }}</div>
+                <div style="font-size: 14.5px; color: oklch(45% 0.01 260); line-height: 1.55;">{{ proj.summary }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- WORK LIST VIEW -->
+    <sc-if value="{{ isWorkList }}" hint-placeholder-val="{{ false }}">
+      <section style="padding: 96px 56px 108px; max-width: 1120px; margin: 0 auto; animation: fadeUp 0.4s ease;">
+        
+        <h1 style="font-family: 'Sora', sans-serif; font-size: 42px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px;">Case studies</h1>
+        <p style="font-size: 16.5px; color: oklch(45% 0.01 260); margin: 0 0 48px;">A few projects that shaped how I think about design.</p>
+        <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px;">
+          <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="5">
+            <div onClick="{{ proj.open }}" style="cursor: pointer; grid-column: {{ proj.span }}; border-radius: 20px; overflow: hidden; background: oklch(99% 0.008 70); border: 1px solid oklch(88% 0.012 75); transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; box-shadow: 0 1px 2px oklch(20% 0.01 260 / 0.04); position: relative;" style-hover="transform: rotate({{ proj.rot }}) scale(1.015); box-shadow: 0 18px 34px oklch(20% 0.02 260 / 0.14); border-color: {{ accentColor }};">
+              <div style="position: absolute; top: 16px; right: 16px; z-index: 2; font-family: 'Sora', sans-serif; font-size: 46px; font-weight: 800; color: oklch(100% 0 0 / 0.5); line-height: 1;">{{ proj.num }}</div>
+              <div style="height: 196px; background: linear-gradient(150deg, {{ proj.stripeA }}, {{ proj.stripeB }}); display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: monospace; font-size: 11.5px; color: oklch(30% 0.02 260 / 0.55); background: oklch(99% 0.008 70 / 0.8); padding: 4px 10px; border-radius: 6px;">{{ proj.imageLabel }}</span>
+              </div>
+              <div style="padding: 24px 26px 28px;">
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: {{ accentColor }}; margin-bottom: 9px;">{{ proj.tag }}</div>
+                <div style="font-family: 'Sora', sans-serif; font-size: 19.5px; font-weight: 700; letter-spacing: -0.01em;">{{ proj.title }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- CASE STUDY DETAIL VIEW -->
+    <sc-if value="{{ isCaseStudy }}" hint-placeholder-val="{{ false }}">
+      <section style="padding: 96px 56px 108px; max-width: 860px; margin: 0 auto; animation: fadeUp 0.4s ease;">
+        <span onClick="{{ goWorkList }}" style="cursor: pointer; font-size: 14px; font-weight: 600; color: {{ accentColor }}; display: inline-block; margin-bottom: 32px;">← All work</span>
+        
+        
+
+        
+
+        <sc-if value="{{ !activeProject.hasSections }}" hint-placeholder-val="{{ false }}">
+          <div style="border-radius: 18px; margin-bottom: 44px; background: linear-gradient(150deg, {{ activeProject.stripeA }}, {{ activeProject.stripeB }}); position: relative; overflow: hidden; display: flex; align-items: stretch; min-height: 300px;">
+            <div style="flex: 1.1; padding: 44px 0 44px 40px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1;">
+              <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: {{ accentColor }}; margin-bottom: 10px;">{{ activeProject.tag }}</div>
+              <h2 style="font-family: 'Sora', sans-serif; font-size: 28px; line-height: 1.15; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 16px;">{{ activeProject.title }}</h2>
+              <p style="font-size: 14.5px; line-height: 1.55; color: oklch(30% 0.02 260 / 0.75); margin: 0; max-width: 320px;">{{ activeProject.summary }}</p>
+            </div>
+            <div style="flex: 0.85; display: flex; align-items: center; justify-content: center; position: relative;">
+              <span style="font-family: monospace; font-size: 11.5px; color: oklch(30% 0.02 260 / 0.55); background: oklch(99% 0.008 70 / 0.8); padding: 5px 12px; border-radius: 6px;">{{ activeProject.imageLabel }}</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 48px; padding: 26px 0; border-top: 1px solid oklch(87% 0.014 75); border-bottom: 1px solid oklch(87% 0.014 75); margin-bottom: 44px;">
+            <div>
+              <div style="font-size: 12px; color: oklch(50% 0.01 260); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; font-weight: 600;">Role</div>
+              <div style="font-size: 15px; font-weight: 600;">{{ activeProject.role }}</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: oklch(50% 0.01 260); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; font-weight: 600;">Timeline</div>
+              <div style="font-size: 15px; font-weight: 600;">{{ activeProject.timeline }}</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: oklch(50% 0.01 260); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; font-weight: 600;">PROJECT TYPE</div>
+              <div style="font-size: 15px; font-weight: 600;">{{ activeProject.team }}</div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 38px;">
+            <div>
+              <h3 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin: 0 0 11px;">Overview</h3>
+              <p style="font-size: 16px; line-height: 1.7; color: oklch(35% 0.012 260); margin: 0;">{{ activeProject.problem }}</p>
+            </div>
+            <div>
+              <h3 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin: 0 0 11px;">Project Goal</h3>
+              <p style="font-size: 16px; line-height: 1.7; color: oklch(35% 0.012 260); margin: 0;">{{ activeProject.process }}</p>
+            </div>
+            <div>
+              <h3 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin: 0 0 11px;">The solution</h3>
+              <p style="font-size: 16px; line-height: 1.7; color: oklch(35% 0.012 260); margin: 0;">{{ activeProject.solution }}</p>
+            </div>
+            <div style="padding: 26px 30px; border-radius: 16px; background: oklch(94% 0.014 75); border-left: 3px solid {{ accentColor }};">
+              <h3 style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin: 0 0 9px; color: {{ accentColor }};">Outcome</h3>
+              <p style="font-size: 15.5px; line-height: 1.6; color: oklch(28% 0.012 260); margin: 0;">{{ activeProject.outcome }}</p>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ activeProject.hasSections }}" hint-placeholder-val="{{ false }}">
+          <div style="border-radius: 18px; margin-bottom: 44px; background: linear-gradient(150deg, {{ activeProject.stripeA }}, {{ activeProject.stripeB }}); position: relative; overflow: hidden; display: flex; align-items: stretch; min-height: 300px;">
+            <div style="flex: 1.1; padding: 44px 0 44px 40px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1;">
+              <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: {{ activeProject.bannerAccent }}; margin-bottom: 10px;">{{ activeProject.tag }}</div>
+              <h2 style="font-family: 'Sora', sans-serif; font-size: 28px; line-height: 1.15; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 16px; color: {{ activeProject.bannerText }};">{{ activeProject.title }}</h2>
+              <p style="font-size: 14.5px; line-height: 1.55; color: {{ activeProject.bannerSub }}; margin: 0; max-width: 320px;">{{ activeProject.summary }}</p>
+            </div>
+            <div style="flex: 0.85; position: relative; overflow: hidden;">
+              <sc-if value="{{ activeProject.hasBanner }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ activeProject.bannerImage }}" alt="{{ activeProject.title }} screens" style="position: absolute; top: 50%; right: 24px; transform: translateY(-50%); width: 300px; max-height: 88%; object-fit: contain; border-radius: 12px; box-shadow: 0 20px 50px oklch(20% 0.02 260 / 0.18);">
+              </sc-if>
+              <div style="position: absolute; inset: 0; background: linear-gradient(90deg, {{ activeProject.stripeA }} 0%, transparent 22%); left: -32px; top: 2px"></div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 48px; padding: 26px 0; border-top: 1px solid oklch(87% 0.014 75); border-bottom: 1px solid oklch(87% 0.014 75); margin-bottom: 44px;">
+            <div>
+              <div style="font-size: 12px; color: oklch(50% 0.01 260); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; font-weight: 600;">Role</div>
+              <div style="font-size: 15px; font-weight: 600;">{{ activeProject.role }}</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: oklch(50% 0.01 260); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; font-weight: 600;">Timeline</div>
+              <div style="font-size: 15px; font-weight: 600;">{{ activeProject.timeline }}</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: oklch(50% 0.01 260); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; font-weight: 600;">PROJECT TYPE</div>
+              <div style="font-size: 15px; font-weight: 600;">{{ activeProject.team }}</div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 26px;">
+            <sc-for list="{{ activeProject.sectionList }}" as="sec" hint-placeholder-count="0">
+              <sc-if value="{{ sec.isHeading }}" hint-placeholder-val="{{ false }}">
+                <h2 style="font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 800; letter-spacing: -0.01em; margin: 14px 0 0;">{{ sec.text }}</h2>
+              </sc-if>
+              <sc-if value="{{ sec.isSubheading }}" hint-placeholder-val="{{ false }}">
+                <h3 style="font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin: 6px 0 0; color: {{ accentColor }};">{{ sec.text }}</h3>
+              </sc-if>
+              <sc-if value="{{ sec.isText }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size: 16px; line-height: 1.7; color: oklch(35% 0.012 260); margin: 0;">{{ sec.text }}</p>
+              </sc-if>
+              <sc-if value="{{ sec.isImage }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ sec.src }}" alt="Case study visual" style="width: 100%; border-radius: 14px; display: block;">
+              </sc-if>
+              <sc-if value="{{ sec.isMobileShot }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; justify-content: center;">
+                  <img src="{{ sec.src }}" alt="Case study app screen" style="width: 220px; max-width: 100%; border-radius: 14px; display: block;">
+                </div>
+              </sc-if>
+              <sc-if value="{{ sec.isSmallImage }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ sec.src }}" alt="Case study logo" style="width: 160px; max-width: 100%; border-radius: 8px; display: block; background: #1e73f0; padding: 16px;">
+              </sc-if>
+              <sc-if value="{{ sec.isPlainImage }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ sec.src }}" alt="" style="width: 320px; max-width: 100%; display: block; margin: 0 auto;">
+              </sc-if>
+              <sc-if value="{{ sec.isPhaseGrid }}" hint-placeholder-val="{{ false }}">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 22px;">
+                  <sc-for list="{{ sec.items }}" as="phase" hint-placeholder-count="4">
+                    <div>
+                      <div style="background: {{ phase.color }}; border-radius: 10px; padding: 14px 10px; text-align: center; font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; color: oklch(22% 0.02 260);">{{ phase.title }}</div>
+                      <ul style="margin: 14px 0 0; padding: 0 0 0 16px; display: flex; flex-direction: column; gap: 6px;">
+                        <sc-for list="{{ phase.items }}" as="it" hint-placeholder-count="4">
+                          <li style="font-size: 15px; line-height: 1.5; color: oklch(30% 0.012 260);">{{ it }}</li>
+                        </sc-for>
+                      </ul>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sec.isDirectionCard }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; gap: 18px; padding: 4px 0;">
+                  <div style="width: 4px; border-radius: 4px; background: {{ sec.color }}; flex-shrink: 0;"></div>
+                  <div>
+                    <h3 style="font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin: 0 0 10px;">{{ sec.title }}</h3>
+                    <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 6px;">
+                      <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="2">
+                        <li style="font-size: 16px; line-height: 1.6; color: oklch(30% 0.012 260);">{{ it }}</li>
+                      </sc-for>
+                    </ul>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sec.isImageRow }}" hint-placeholder-val="{{ false }}">
+                <div style="position: relative;">
+                  <div class="img-row-scroll" style="display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 12px;">
+                    <sc-for list="{{ sec.items }}" as="im" hint-placeholder-count="0">
+                      <img src="{{ im }}" alt="" style="height: 480px; border-radius: 10px; flex-shrink: 0; scroll-snap-align: start; box-shadow: 0 4px 18px rgba(0,0,0,0.12);">
+                    </sc-for>
+                  </div>
+                  <button onClick="{{ scrollRowLeft }}" style="position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: none; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer; font-size: 18px;">‹</button>
+                  <button onClick="{{ scrollRowRight }}" style="position: absolute; right: -8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: none; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer; font-size: 18px;">›</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sec.isList }}" hint-placeholder-val="{{ false }}">
+                <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px;">
+                  <sc-for list="{{ sec.items }}" as="li" hint-placeholder-count="0">
+                    <li style="font-size: 15.5px; line-height: 1.65; color: oklch(35% 0.012 260);">{{ li }}</li>
+                  </sc-for>
+                </ul>
+              </sc-if>
+              <sc-if value="{{ sec.isLogoPair }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+                  <img src="{{ sec.srcA }}" alt="{{ sec.altA }}" style="height: 40px; object-fit: contain;">
+                  <img src="{{ sec.srcB }}" alt="{{ sec.altB }}" style="height: 40px; object-fit: contain;">
+                </div>
+              </sc-if>
+              <sc-if value="{{ sec.isLogoTrio }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+                  <img src="{{ sec.srcA }}" alt="{{ sec.altA }}" style="height: 40px; object-fit: contain;">
+                  <img src="{{ sec.srcB }}" alt="{{ sec.altB }}" style="height: 40px; object-fit: contain;">
+                  <img src="{{ sec.srcC }}" alt="{{ sec.altC }}" style="height: 40px; object-fit: contain;">
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <!-- ABOUT VIEW -->
+    <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+      <section style="padding: 96px 56px 108px; max-width: 1120px; margin: 0 auto; animation: fadeUp 0.4s ease;">
+        
+        <h1 style="font-family: 'Sora', sans-serif; font-size: 46px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 26px;">About me</h1>
+        <p style="font-size: 17.5px; line-height: 1.75; color: oklch(35% 0.012 260); margin: 0 0 20px;">I am a Full-Stack UX/Product Designer with nearly 4 years of experience delivering end-to-end product design for enterprise SaaS, CRM, telecommunications, and AI-powered products at Verizon and Salesforce.</p>
+        <p style="font-size: 17.5px; line-height: 1.75; color: oklch(35% 0.012 260); margin: 0 0 20px;">Whether I'm talking to users, mapping messy processes, or collaborating with cross-functional teams, I love uncovering the "why" behind problems and designing solutions that balance user needs with business goals. I am passionate about human-centered design, accessibility (WCAG), design systems, and creating thoughtful experiences that make technology easier to use.</p>
+        <a href="https://drive.google.com/file/d/1kfoW5C5D8v_J2F_XFwdI38t_q5mG-1zE/view?usp=sharing" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; margin: 8px 0 60px; background: transparent; color: oklch(15% 0.01 260); padding: 12px 23px; border-radius: 100px; font-size: 14.5px; font-weight: 600; border: 1.5px solid oklch(15% 0.01 260 / 0.35);" style-hover="background: oklch(15% 0.01 260 / 0.06);">Résumé <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1.5px;"><path d="M12 3v13m0 0-4.5-4.5M12 16l4.5-4.5"></path><path d="M4 20h16"></path></svg></a>
+
+        <h2 style="font-family: 'Sora', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: oklch(45% 0.01 260); font-weight: 700; margin: 0 0 26px;">Experience</h2>
+        <div style="display: flex; flex-direction: column; gap: 0; margin-bottom: 60px;">
+          <sc-for list="{{ experience }}" as="job" hint-placeholder-count="4">
+            <div style="display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid oklch(89% 0.012 75); position: relative;">
+              <div style="font-size: 13.5px; color: oklch(50% 0.01 260); font-weight: 600;">{{ job.dates }}</div>
+              <div style="border-left: 2px solid {{ accentColor }}; padding-left: 20px;">
+                <div style="font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 5px;">{{ job.role }} · <span style="font-weight: 800; color: {{ accentColor }};">{{ job.company }}</span></div>
+                <div style="font-size: 15px; line-height: 1.6; color: oklch(40% 0.012 260);">{{ job.description }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <h2 style="font-family: 'Sora', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: oklch(45% 0.01 260); font-weight: 700; margin: 0 0 26px;">Education</h2>
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 60px;">
+          <sc-for list="{{ education }}" as="edu" hint-placeholder-count="1">
+            <div style="border-left: 2px solid {{ accentColor }}; padding-left: 20px;">
+              <div style="font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 4px;">{{ edu.degree }}</div>
+              <div style="font-size: 14px; color: oklch(50% 0.01 260); font-weight: 600;">{{ edu.meta }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <h2 style="font-family: 'Sora', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: oklch(45% 0.01 260); font-weight: 700; margin: 0 0 26px;">Recognitions</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 60px;">
+          <sc-for list="{{ recognitions }}" as="rec" hint-placeholder-count="4">
+            <div style="border-left: 2px solid {{ accentColor }}; padding-left: 20px;">
+              <div style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 3px;">{{ rec.title }} <span style="font-weight: 600; color: oklch(50% 0.01 260); font-size: 14px;">· {{ rec.meta }}</span></div>
+              <div style="font-size: 14.5px; line-height: 1.6; color: oklch(40% 0.012 260);">{{ rec.description }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <h2 style="font-family: 'Sora', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: oklch(45% 0.01 260); font-weight: 700; margin: 0 0 26px;">Skills</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;">
+          <sc-for list="{{ skillGroups }}" as="grp" hint-placeholder-count="3">
+            <div>
+              <div style="font-size: 13px; font-weight: 700; color: {{ accentColor }}; margin-bottom: 12px;">{{ grp.label }}</div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <sc-for list="{{ grp.itemList }}" as="item" hint-placeholder-count="3">
+                  <span style="font-size: 14.5px; color: oklch(32% 0.012 260); padding: 8px 14px; background: oklch(94% 0.014 75); border-radius: 9px; border: 1px solid oklch(89% 0.012 75);">{{ item }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+  </main>
+
+  <!-- FOOTER / CONTACT — persistent -->
+  <footer style="padding: 64px 56px 44px; background: oklch(14% 0.012 260); color: oklch(96% 0.005 90);">
+    <div style="max-width: 1120px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 28px;">
+      <div>
+        <div style="font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.01em;">Let's talk.</div>
+        <p style="font-size: 15px; color: oklch(72% 0.008 90); margin: 0; max-width: 420px; line-height: 1.6;">Reach out for full-time roles, freelance work, or just to talk shop about UX and design thinking.</p>
+      </div>
+      <div style="display: flex; gap: 26px; font-size: 14.5px; font-weight: 600;">
+        <a href="mailto:soar.indi@gmail.com" style="display: flex; align-items: center; gap: 9px; color: oklch(96% 0.005 90);" style-hover="opacity: 0.7;">
+          <span style="width: 26px; height: 26px; border-radius: 7px; background: oklch(96% 0.005 90); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="oklch(14% 0.012 260)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 17px; height: 16px"><path d="M4 6h16v12H4z"></path><path d="M4 7l8 6 8-6"></path></svg>
+          </span>
+          soar.indi@gmail.com
+        </a>
+        <a href="tel:+917870766667" style="display: flex; align-items: center; gap: 9px; color: oklch(96% 0.005 90);" style-hover="opacity: 0.7;">
+          <span style="width: 26px; height: 26px; border-radius: 7px; background: oklch(96% 0.005 90); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="oklch(14% 0.012 260)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .36 1.99.68 2.94a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.14-1.25a2 2 0 0 1 2.11-.45c.95.32 1.94.55 2.94.68A2 2 0 0 1 22 16.92z"></path></svg>
+          </span>
+          +91 78707 66667
+        </a>
+        <a href="https://www.linkedin.com/in/ssarkar-soarindi/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 9px; color: oklch(96% 0.005 90);" style-hover="opacity: 0.7;">
+          <span style="width: 26px; height: 26px; border-radius: 7px; background: oklch(96% 0.005 90); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(14% 0.012 260)" stroke="none"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.5h3v12h-3zM9.5 8.5h2.9v1.64h.04c.4-.76 1.4-1.64 2.9-1.64 3.1 0 3.66 2.04 3.66 4.7v7.3h-3v-6.47c0-1.54-.03-3.53-2.15-3.53-2.15 0-2.48 1.68-2.48 3.42v6.58h-3z"></path></svg>
+          </span>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+    <div style="max-width: 1120px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid oklch(28% 0.01 260); font-size: 13px; color: oklch(55% 0.01 260);">© 2026 Soma Sarkar. Designed with care :)</div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1400, &quot;height&quot;: 900}, &quot;accentColor&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;oklch(55% 0.19 258)&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;oklch(55% 0.19 258)&quot;, &quot;oklch(55% 0.16 30)&quot;, &quot;oklch(55% 0.15 145)&quot;, &quot;oklch(55% 0.17 320)&quot;]}, &quot;heroTagline&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;I'm a Full-Stack UX Designer who believes great design makes life simpler. From strategy and research to polished interfaces, I transform complex problems into intuitive experiences that help people accomplish more with less effort. I'm driven by empathy and opportunity to create meaningful impact\u2014one thoughtful design decision at a time.&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;availableForWork&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { view: 'home', activeId: null };
+  scrollRowLeft = (e) => { const row = e.currentTarget.parentElement.querySelector('.img-row-scroll'); if (row) row.scrollBy({ left: -360, behavior: 'smooth' }); };
+  scrollRowRight = (e) => { const row = e.currentTarget.parentElement.querySelector('.img-row-scroll'); if (row) row.scrollBy({ left: 360, behavior: 'smooth' }); };
+
+  projectsData = [
+    { id: 'p6', tag: 'Verizon · Contact Center Tools', title: 'Call Transfer Tool Evolution', summary: 'Re-imagined the call transfer tool for Verizon contact center agents, replacing a manual, error-prone workflow with a smart, context-aware experience.',
+      role: 'Researcher, Designer', timeline: '12 Weeks', team: 'Tool Evolution to simplify Call Transfers',
+      problem: 'High Average Handle Time (AHT) and a lack of data on transfer reasons were driving down CSAT scores and creating operational blind spots for Verizon\u2019s contact center.',
+      process: 'A Discover \u2192 Define \u2192 Ideate \u2192 Design process combining stakeholder interviews, call listening, contextual inquiry, and journey mapping to expose exactly where transfers were breaking down.',
+      solution: 'A redesigned Call Transfer Initiator with smart department suggestions, auto-verified customer details, and AI-generated transfer notes \u2014 removing manual typing and guesswork for agents.',
+      outcome: 'Phase 1 launched in November 2025; Phase 2 (waiting-time visibility, sentiment scoring) is next on the roadmap.',
+      stripeA: 'oklch(90% 0.04 40)', stripeB: 'oklch(96% 0.02 40)', imageLabel: 'CALL TRANSFER TOOL UI — ADD SCREENSHOT',
+      bannerImage: 'assets/calltransfer-banner-photo.png',
+      bannerAccent: 'oklch(55% 0.19 40)', bannerText: 'oklch(18% 0.01 260)', bannerSub: 'oklch(30% 0.02 260 / 0.75)',
+      sections: [
+        { type: 'heading', text: 'Overview' },
+        { type: 'text', text: 'High Average Handle Time (AHT) and a lack of data on transfer reasons were currently driving down CSAT scores and creating operational blind spots. To resolve this, the business team wanted a redesigned call transfer tool in order to capture actionable business insights and ultimately increase customer satisfaction.' },
+        { type: 'heading', text: 'How I Approached It' },
+        { type: 'phasegrid', items: [
+          { color: 'oklch(85% 0.06 20)', title: 'Discover', items: ['Background research', 'Stakeholder interviews', 'Content and data analysis \u2014 survey and user feedback', 'Contextual inquiry \u2014 master apprentice model', 'Call listening'] },
+          { color: 'oklch(85% 0.05 240)', title: 'Define', items: ['Clustering insights', 'Personas', 'User journey', 'Story boarding', 'Design directions'] },
+          { color: 'oklch(88% 0.07 55)', title: 'Ideate', items: ['Brainstorming sessions', 'How Might We(s)', 'User flows', 'Design explorations'] },
+          { color: 'oklch(87% 0.08 145)', title: 'Design', items: ['Collaboration with developers for feasibility check', 'Iteration to create the final design'] }
+        ] },
+        { type: 'heading', text: 'Gaps in the Current Journey' },
+        { type: 'image', src: 'assets/calltransfer-gaps-journey.png' },
+        { type: 'heading', text: 'The Ancient Designs' },
+        { type: 'image', src: 'assets/calltransfer-ancient-designs.png' },
+        { type: 'subheading', text: 'Flaws in the Call Transfer Initiator' },
+        { type: 'image', src: 'assets/calltransfer-flaws-initiator-v2.png' },
+        { type: 'subheading', text: 'Flaws in the Call Transfer Receiver' },
+        { type: 'image', src: 'assets/calltransfer-flaws-receiver-v2.png' },
+        { type: 'heading', text: 'Directions' },
+        { type: 'directioncard', color: 'oklch(80% 0.1 145)', title: 'Continuous', items: ['there is no break in the customer experience', 'persistent data hand-off', 'a sense of shared workspace for the agents'] },
+        { type: 'directioncard', color: 'oklch(80% 0.08 240)', title: 'Clear', items: ['no ambiguity should be there for both agents and customers even when it is a small thing like waiting time'] },
+        { type: 'directioncard', color: 'oklch(80% 0.1 55)', title: 'Warm', items: ['avoiding the technical loop and making it more human interactive', 'indulgence towards warm transfers models'] },
+        { type: 'heading', text: 'How Might We(s)' },
+        { type: 'list', items: [
+          'How might we ensure agents receive relevant real-time customer data and transfer notes in a quick, digestible form?',
+          'How might we reduce manual steps in transfers while keeping agents informed?',
+          'How might we help agents easily identify the correct department and minimise misrouting?',
+          'How might we capture appropriate data for the business team to take actions upon?',
+          'How might we reduce customer frustration by ensuring seamless information transfer between agents?',
+          'How might we ensure agents are fully prepared for both warm and cold transfers without adding complexity?',
+          'How might we provide agents with helpful historical insights about the customer\u2019s journey without overwhelming them?'
+        ] },
+        { type: 'heading', text: 'Prioritization' },
+        { type: 'subheading', text: 'Must have \u2014 got launched as Phase 1 on Nov 2025' },
+        { type: 'list', items: ['Analyze the call and create notes through automation, including the outcome of previous interactions', 'Automatically summarize and share information like customer interaction history and notes from the previous conversation', 'Validate customer zip code for FiOS Home Internet'] },
+        { type: 'subheading', text: 'Good to have \u2014 going for Phase 2 launch' },
+        { type: 'list', items: ['Revamp dropdown \u2014 list clear names', 'Clearly show the waiting time, especially for cold transfers', 'Sentiment analysis and use of customer sentiment score to display satisfaction level'] },
+        { type: 'subheading', text: 'Nice to have \u2014 on hold for now' },
+        { type: 'list', items: ['Automatic escalation and high-priority handling for 3\u20135x call transfers', 'AI-powered omni routing \u2014 routes the call to the most suitable agent and provides insights into customer sentiment'] },
+        { type: 'heading', text: 'New Call Transfer Initiator' },
+        { type: 'image', src: 'assets/calltransfer-new-initiator.png' },
+        { type: 'heading', text: 'Impact' },
+        { type: 'text', text: 'Phase 1 shipped and launched in November 2025 \u2014 automating transfer notes, department suggestion, and zip-code validation for agents. Phase 2, focused on visible waiting times and sentiment scoring, is next on the roadmap.' }
+      ] },
+    { id: 'p5v', tag: 'Verizon · AI & Assisted Channels', title: 'Optix — Unifying Assisted Channel Experiences with AI', summary: 'Integrated AI into Verizon\u2019s assisted channel workflows, unifying wireline and wireless call center flows into one experience.',
+      role: 'UX Designer 2', timeline: 'Jul 2024 — Present', team: 'Optix (FiOS) product team',
+      problem: 'Call center agents juggled separate, inconsistent workflows for wireline and wireless support, slowing resolution times and increasing training overhead.',
+      process: 'Partnered with the Optix product team to map existing agent workflows end-to-end, identifying redundant steps and opportunities for AI to surface relevant information proactively.',
+      solution: 'A unified assisted-channel interface with AI-driven suggestions that consolidates wireline and wireless support into one consistent flow for agents.',
+      outcome: 'Streamlined the assisted channel experience for agents, reducing tool-switching and setting the foundation for further AI-driven support tooling.',
+      stripeA: 'oklch(93% 0.03 280)', stripeB: 'oklch(97% 0.015 280)', imageLabel: 'OPTIX ASSISTED CHANNEL UI — ADD SCREENSHOT' },
+    { id: 'p1', tag: 'Salesforce · Fleet Management APP', title: 'Envisioning Fleet Management Journey', summary: 'Designed Phase 1 of a Salesforce-centric fleet management app addressing safety and operational efficiency for fleet managers.',
+      role: 'UX Designer', timeline: '6 Weeks', team: 'Team Project',
+      problem: 'Over time, the Salesforce business team has noticed increasing customer demand for Fleet Management services. The team predicts that this demand will continue to grow. As a result, they decided to develop a Salesforce-centric Fleet Management application, within the Salesforce Automobile Industry Cloud, that comprehensively addresses all major aspects of fleet management using the Salesforce model and feasible technology. Further, the team decided to split the project into chunks and work in phases. So this case study is based on Phase 1.',
+      process: 'Designing a Salesforce-centric Fleet Management application that addresses the identified market demand and aligns with customer needs. This initiative is expected to drive operational efficiency, enhance safety, simplify a fleet manager\'s job, and improve overall customer satisfaction, positioning Salesforce as a versatile and responsive solutions provider.',
+      solution: 'A Salesforce Lightning Design System (SLDS) prototype for Phase 1, built on Salesforce CRM Analytics, Einstein AI, and Data Cloud, covering real-time tracking, uptime management, and maintenance reminders.',
+      outcome: 'Phase 1 shipped for business review and user onboarding, setting up the next phase of the fleet management roadmap.',
+      stripeA: 'oklch(93% 0.03 220)', stripeB: 'oklch(97% 0.015 220)', imageLabel: 'FLEET MANAGEMENT PROTOTYPE — ADD SCREENSHOT',
+      bannerImage: 'https://static.wixstatic.com/media/0c9571_7201045faa114ef4808750579e8ef588~mv2.png',
+      bannerAccent: 'oklch(55% 0.19 250)', bannerText: 'oklch(18% 0.01 260)', bannerSub: 'oklch(30% 0.02 260 / 0.75)',
+      sections: [
+        { type: 'heading', text: 'Business Goal' },
+        { type: 'text', text: 'Over time, the Salesforce business team has noticed increasing customer demand for Fleet Management services. The team predicts that this demand will continue to grow. As a result, they decided to develop a Salesforce-centric Fleet Management application, within the Salesforce Automobile Industry Cloud, that comprehensively addresses all major aspects of fleet management using the Salesforce model and feasible technology. Further, the team decided to split the project into chunks and work in phases. So this case study is based on Phase 1.' },
+        { type: 'heading', text: 'Project Goal' },
+        { type: 'text', text: 'Designing a Salesforce-centric Fleet Management application that addresses the identified market demand and aligns with customer needs. This initiative is expected to drive operational efficiency, enhance safety, simplify a fleet manager\'s job, and improve overall customer satisfaction, positioning Salesforce as a versatile and responsive solutions provider.' },
+        { type: 'heading', text: 'The Process' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_342541d6bebf410088dfcf14679e0aaa~mv2.png' },
+        { type: 'subheading', text: 'Empathise — Primary Research' },
+        { type: 'text', text: 'We started with primary research, as one of our team members went to gather info from the fleet management hub located in Chennai. We could only receive a little data and draw insight from it.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_12875279863f41669060c2ce0f160eae~mv2.png' },
+        { type: 'subheading', text: 'Secondary Research' },
+        { type: 'text', text: 'To continue with the empathise phase, we decided to delve into secondary research.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_67b751ed22ea41ebb144fac18b88ec30~mv2.png' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_c6e54e3830be40af974ce9f0d88d419b~mv2.png' },
+        { type: 'list', items: ['The first two images show looting and robbery.', 'The third image shows long traffic jams of delivery trucks.', 'The last three images are concrete evidence of fatal truck accidents.'] },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_78b9d72089524cee98c2c18d904a2d1d~mv2.png' },
+        { type: 'subheading', text: 'Competitive Analysis' },
+        { type: 'text', text: 'To learn about the current ecosystem and technologies involved in fleet management, we studied two leading fleet management apps — Eicher and Daimler — closely and drew insights.' },
+        { type: 'logopair', srcA: 'https://static.wixstatic.com/media/0c9571_226f392599164ec1889e0ea811d21cc3~mv2.png', altA: 'Eicher', srcB: 'https://static.wixstatic.com/media/0c9571_8237aeef9a4a4741b2d496dc3af8380d~mv2.png', altB: 'Daimler' },
+        { type: 'heading', text: 'Define — Affinity Mapping' },
+        { type: 'text', text: 'Next was to organise all the insights found until then.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_7edac404911c4d60a7d297f37044aa89~mv2.png' },
+        { type: 'text', text: 'For Phase 1 we decided to go with only a subset of the topics; the rest were slated for the next phase.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_af8b45452b38441d911d2f50191463aa~mv2.png' },
+        { type: 'subheading', text: 'Persona' },
+        { type: 'text', text: 'Based on the insights gained, the persona was elaborately drafted.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_5102fa0ba8c64b039259e83125c91a6d~mv2.png' },
+        { type: 'heading', text: 'Ideate' },
+        { type: 'text', text: 'Based on the user goals and Salesforce business model, we drafted the possible current journey and jotted down opportunities.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_206352db7a894fb79cc09485fc6fd9d3~mv2.png' },
+        { type: 'subheading', text: 'Salesforce Products Involved' },
+        { type: 'logotrio', srcA: 'https://static.wixstatic.com/media/0c9571_39ecdff7820540989308749dc5a545cb~mv2.png', altA: 'Salesforce CRM Analytics', srcB: 'https://static.wixstatic.com/media/0c9571_08c5f0041688455dba4f001d5832804b~mv2.png', altB: 'Salesforce Einstein AI', srcC: 'https://static.wixstatic.com/media/0c9571_8d9712e402a64dfea20093956be537a3~mv2.png', altC: 'Salesforce Data Cloud' },
+        { type: 'text', text: 'Other products used for implementation: Mulesoft (to integrate third-party tools like maps), Salesforce Lightning Platform for UI and development, and Heroku for app development.' },
+        { type: 'heading', text: 'Prototype' },
+        { type: 'text', text: 'Screens designed using SLDS (Salesforce Lightning Design System) for Phase 1 of the app.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_7201045faa114ef4808750579e8ef588~mv2.png' },
+        { type: 'heading', text: 'Assumptions' },
+        { type: 'list', items: ['The solution only caters to Indian users.', 'Users are assumed to be connected to the internet while using the app.', 'Delivery fleet businesses are assumed to be using OBD systems for their vehicles.', 'The underlying technologies would work efficiently.'] },
+        { type: 'heading', text: 'Next Step' },
+        { type: 'text', text: 'Phase 1 is done and now we are waiting for the business team to review the project and onboard users for testing, after which iterations would be made before starting the next phase using the same process.' }
+      ] },
+    { id: 'p2', tag: 'Salesforce · Wellness & Giving', title: 'Pace with Purpose — Wellness Meets Philanthropy', summary: 'Designed an internal Salesforce app turning employee step-tracking into charitable donations.',
+      role: 'UX Designer', timeline: '7 Weeks', team: 'Salesforce Volunteer Project',
+      problem: 'Employees wanted to give back and stay active, but similar philanthropy programs saw low participation due to lack of motivation and poor time management.',
+      process: 'Secondary research and a competitive analysis of similar impact apps informed a persona and user flow, followed by information architecture and wireframing.',
+      solution: 'A Salesforce-integrated app with real-time activity tracking, automated donation calculations, hub selection, daily goals, leaderboards, and event reminders, in a deep blue visual identity.',
+      outcome: 'Final UI shipped to leadership for review, with feedback feeding directly into the next iteration.',
+      summary: 'An internal Salesforce app that turns employee step-tracking into charitable donations — pairing wellness goals with social impact through hub selection, leaderboards, and event reminders.',
+      stripeA: 'oklch(38% 0.09 255)', stripeB: 'oklch(55% 0.1 250)', imageLabel: 'PACE WITH PURPOSE UI — ADD SCREENSHOT',
+      bannerImage: 'https://static.wixstatic.com/media/0c9571_257d65b270064e53959199d8c20233b4~mv2.png',
+      bannerAccent: 'oklch(85% 0.06 250)', bannerText: 'oklch(99% 0 0)', bannerSub: 'oklch(92% 0.01 250 / 0.85)',
+      sections: [
+        { type: 'heading', text: 'Overview' },
+        { type: 'text', text: 'In a world driven by technology and philanthropy, Salesforce is getting ready to introduce its innovative \u2018Pace with Purpose App\u2019 \u2013 a revolutionary solution merging corporate wellness initiatives with charitable giving. This app leverages the power of Salesforce, to seamlessly integrate physical activity tracking with donation functionalities, fostering a culture of well-being and social impact within the organisation.' },
+        { type: 'heading', text: 'The Ask' },
+        { type: 'text', text: 'How might we make a Salesforce centric user-friendly app, for Salesforce employees, that allows users to track their daily steps, convert the steps into charitable donations and in parallel keep them motivated?' },
+        { type: 'heading', text: 'Discovery' },
+        { type: 'text', text: 'A brief study was done in the form of secondary research to churn out insights regarding user expectations, motivations and needs. It was observed that most of the users who have enrolled in similar philanthropic activities, fail to participate not because they don\u2019t want to give back to society but due to lack of motivation or bad time management.' },
+        { type: 'subheading', text: 'Competitive Analysis' },
+        { type: 'text', text: 'To unveil further insights, a competitive analysis was also done. Three similar apps including the \u2018Impact app\u2019 itself were studied by listing and comparing the key tasks of each app. Studying the competitors also helped to get a faint mind map of a basic user flow for the final app.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_2f6d7a619ab2461ba8ef3ef37d16ed72~mv2.png' },
+        { type: 'heading', text: 'Definition' },
+        { type: 'subheading', text: 'Persona' },
+        { type: 'text', text: 'After synthesising the data gathered, the persona was defined so as to get a prominent image of the target audience\u2019s goals, pain points and needs, in order to make appropriate design decisions.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_99cacd12901546b9a73990fe176724fb~mv2.jpg' },
+        { type: 'subheading', text: 'Key Features' },
+        { type: 'list', items: [
+          'Real-time Activity Tracking: Employees can sync their mobile devices, fostering a health-conscious workplace.',
+          'Automated Donation Calculations: The app intelligently calculates donations based on tracked steps, making the process effortless and transparent.',
+          'Salesforce Integration: Seamless integration with Salesforce ensures a unified experience for users and allows employees to track and analyse participation data.',
+          'Hub Selection: Based on the location of the employee, they can select a hub, encouraging team spirit and unity.',
+          'Daily Target Settings: Employees can set and customise daily goals and targets, promoting friendly competition and teamwork.',
+          'Registration for Events: Employees can register themselves and their family members for upcoming Salesforce events.',
+          'Leaderboards and Recognition: Leaderboards showcase individual and team achievements, fostering healthy competition.',
+          'Auto Reminder Settings: Reminders activate automatically upon event registration, and can be edited manually too.'
+        ] },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_a4ce6a74f08b4c31babff8b942ef4ac7~mv2.webp' },
+        { type: 'heading', text: 'Ideation' },
+        { type: 'subheading', text: 'User Flow' },
+        { type: 'text', text: 'To make our ideas more tangible, the user flow was structured. The objective was also to comprehend how users would interact with our content.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_27977db6e9de46c4b99458a56ea2b7ce~mv2.png' },
+        { type: 'subheading', text: 'Information Architecture' },
+        { type: 'text', text: 'After the user flow was approved by the business team, we stepped ahead to add more details and clarity to our ideas via information architecture. Arranging and aligning the tasks and features of the app according to this architecture would reduce complexities for the users.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_92ff99ef7af046c4b257d9ba9e06d46c~mv2.png' },
+        { type: 'heading', text: 'Design' },
+        { type: 'subheading', text: 'Wireframing' },
+        { type: 'text', text: 'Drawing upon Information Architecture and user flow considerations, we delved into crafting an illustrative representation of a screen interface, emphasising the allocation of space, content prioritisation, available functionalities, and expected user behaviours.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_42dca4387f51459095c34a2a71dd14f1~mv2.jpg' },
+        { type: 'subheading', text: 'Final Design' },
+        { type: 'text', text: 'The design journey for this interface began with an unspoken dialogue with an existing UI, allowing its spirit to gently inform the creative process. The result is a design that carries the echo of its inspiration through a deep blue colour palette, symbolizing depth and reliability while charting its course with a distinct sense of purpose and clarity.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_1e4d3224a7704a98b4cd6859366d4301~mv2.png' },
+        { type: 'subheading', text: 'Final UI' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_257d65b270064e53959199d8c20233b4~mv2.png' },
+        { type: 'heading', text: 'Next Steps' },
+        { type: 'text', text: 'Going forward, we received a handful of feedback from our senior leadership, and started to brainstorm upon those feedbacks in order to enhance the app.' },
+        { type: 'heading', text: 'Conclusion' },
+        { type: 'text', text: 'It was a remarkable experience where we got the opportunity to boost morale and team spirit by encouraging employees to stay active while contributing to charitable causes, and at the same time, showcase Salesforce\u2019s commitment to well-being and social responsibility. We are looking forward to the Pace with Purpose App as a catalyst for positive change — seamlessly integrating wellness and philanthropy to create a healthier, more socially conscious workplace.' }
+      ] },
+    { id: 'p3', tag: 'Academic · Career Platform', title: 'Endeavor — Guiding Job-Seeking Youth in India', summary: 'An AI-assisted platform helping young job seekers in India get guidance and community support.',
+      role: 'UX Designer (solo, academic)', timeline: 'Four Weeks', team: 'Academic Solo Project',
+      problem: 'Job-seeking youth in India struggle to find the right guidance, and existing platforms like BigShyft and Instahyre either serve narrow niches or overwhelm users with required questions.',
+      process: 'Interviewed 10 users (8 applicants, 2 recruiters) over 1:1 calls, ran a heuristic competitive analysis, then built personas, problem framing, and user flows for applying to jobs and joining community forums.',
+      solution: 'An app where AI plays recommender, learner, and quiz-generator — surfacing ready-to-send community questions, tracking engagement patterns, and keeping users engaged through relevant quizzes.',
+      outcome: 'A key learning emerged: an early gap in recruiter-side research required revisiting discovery — reinforcing the value of validating both sides of a two-sided marketplace.',
+      stripeA: 'oklch(93% 0.03 30)', stripeB: 'oklch(97% 0.015 30)', imageLabel: 'ENDEAVOR APP SCREENS — ADD SCREENSHOT',
+      bannerImage: 'https://static.wixstatic.com/media/0c9571_3b7db61c4ebb4ef6a25f0720e55e3aad~mv2.png',
+      bannerAccent: 'oklch(55% 0.19 30)', bannerText: 'oklch(18% 0.01 260)', bannerSub: 'oklch(30% 0.02 260 / 0.75)',
+      sections: [
+        { type: 'heading', text: 'The Brief' },
+        { type: 'text', text: '\u2018Endeavor\u2019 is an academic project, which targets to engage and improve the experience of the employment-seeking youth in India by providing a solution to one of their major problems.' },
+        { type: 'heading', text: 'The Process' },
+        { type: 'text', text: 'The Double Diamond process was followed. The discovery phase started with an initiative to get into the user\u2019s shoes. And to forge with the same I opted for primary research and prepared questionnaires before reaching out to the users directly, followed by studying the competitors and their products.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_27ed44d3e4694e4ea698a0f6284b6532~mv2.png' },
+        { type: 'heading', text: 'Understanding the Users and the Field' },
+        { type: 'text', text: 'To gain a clear picture of who, what, why, where and how, I opted for primary research and prepared 2 separate questionnaires — one for interviewing job-seeking youth in India and the second for the recruiter. Each interview lasted 30-45 mins, with far more follow-up questions emerging than expected. 10 people were invited over individual video calls, out of which 2 were recruiters, and the interviewees were a mix of freshers and experienced professionals.' },
+        { type: 'subheading', text: 'Why the Job Seekers/Applicants?' },
+        { type: 'text', text: 'As they are the primary users and hence the front and centre of the entire process, empathising with them was the top priority until the very end.' },
+        { type: 'plainimage', src: 'assets/jobseekers-questionnaire-hi-res.png' },
+        { type: 'subheading', text: 'Why the Recruiters?' },
+        { type: 'text', text: 'They are the secondary users — excluding them would create a huge gap leading to something that would never make its way in the real world. So, to create a holistic journey, it was equally important to consider the recruiters.' },
+        { type: 'plainimage', src: 'assets/recruiters-questionnaire-hi-res.png' },
+        { type: 'subheading', text: 'The Reports' },
+        { type: 'text', text: 'Based on the replies, reports were created, which helped demystify the mindset, needs, expectations and challenges users face when it comes to job seeking and recruiting.' },
+        { type: 'subheading', text: 'Studying the Competitors' },
+        { type: 'text', text: 'Jacob Nielsen\u2019s Usability Heuristics guided the competitive study. Major drawbacks found: BigShyft only caters to developers with no upfront info about this, and Instahyre bombards users with required questions right at the threshold, causing users to lose interest.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/603377_e5ee6c2a01174db88be0a167f33fb196~mv2.png' },
+        { type: 'subheading', text: 'The Insights Gained' },
+        { type: 'text', text: 'Having completed research and the competitive study, all the data collected was synthesised and the insights gained were listed, with commonalities between individual pain points observed and categorised.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/603377_852f8320eb0f4e41a1a7d87054cc72f4~mv2.jpg' },
+        { type: 'heading', text: 'Persona' },
+        { type: 'text', text: 'The persona was created to better empathise with real-world users — meet Roshan.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/603377_b36f14f80fc9463283a4327ce9cb27a8~mv2.jpg' },
+        { type: 'heading', text: 'Which Problem to Solve?' },
+        { type: 'text', text: 'The persona helped boil the pain points down into 4 major categories, and at this stage it became essential to understand which problem would be feasible and deliverable given the stakeholders, deadline, and resources available.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/603377_47df8ef8f7a243228687514fcd24a271~mv2.jpg' },
+        { type: 'text', text: 'The simplest reason to prioritise Guidance/Counselling is that it involves the least amount of time and resource — the rest need more time, consent, and collaboration with the business/recruiter side.' },
+        { type: 'heading', text: 'The Problem Statement' },
+        { type: 'text', text: 'The product/service will provide proper guidance to job seekers because applicants are missing the right opportunities. How might we build a product/service so that job seekers can get their dream job?' },
+        { type: 'heading', text: 'Jotting the Possibilities' },
+        { type: 'text', text: 'After defining the problem statement, focus shifted to how the problem could be addressed, jotting down all possible ways — marking the close of the first diamond and the start of the second.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_11095e6860d2443a9498d0bc03bd6659~mv2.png' },
+        { type: 'heading', text: 'Leveraging AI to Bridge the Gap' },
+        { type: 'text', text: 'AI plays three major roles in the journey:' },
+        { type: 'list', items: [
+          'As a Recommender: Based on learning, AI sends the user ready-to-post questions through notifications, making the user feel more involved and valued.',
+          'As a Learner: AI observes the user\u2019s moves and memorises the pattern of questions asked within each community, synthesised later for recommendations.',
+          'As a Quiz Generator: To keep users engaged while upskilling, AI generates quizzes related to the user\u2019s interests.'
+        ] },
+        { type: 'heading', text: 'The User Flows' },
+        { type: 'text', text: 'User flows for the primary goals of the app were formulated — applying for a job and submitting an application form, and joining a community forum.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/603377_1851132fbc334e83af3949fb41a6f955~mv2.png' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/603377_1e6805e6a3fc45cdaaeecab06215278e~mv2.png' },
+        { type: 'heading', text: 'Wireframing' },
+        { type: 'text', text: 'Having organised the navigation, wireframes were structured — starting with pencil and paper, followed by more structured screens.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/603377_e7bc57f8a7ca48a1ba60dc12c78a20fd~mv2.png' },
+        { type: 'heading', text: 'Spelling Life into My Idea' },
+        { type: 'subheading', text: 'Logo' },
+        { type: 'text', text: 'The colour stands for reliability and communication. The visuals for the letter E represent a ladder for applicants to climb and achieve success.' },
+        { type: 'smallimage', src: 'https://static.wixstatic.com/media/603377_358de74ac7494353ad1b782365e9d548~mv2.png' },
+        { type: 'subheading', text: 'Major App Screens' },
+        { type: 'text', text: 'Roshan lands on the home page where he is presented a list of recommended jobs along with easy access to other affordances. Recruiters can specify what they expect from applicants and upload videos/images for better understanding, along with ex-employee reviews to give applicants a sense of the company.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_3b7db61c4ebb4ef6a25f0720e55e3aad~mv2.png' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_e809d125a6424337a8f939ad1299fe81~mv2.png' },
+        { type: 'text', text: 'Roshan can switch between community and individual recruiter chats. Community is the virtual space where he can seek help or answers from counsellors — people who have worked with or are working with the company and are willing to help applicants. There\u2019s also quick access to an AI-generated quiz.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_6f50a120d48b4c9abd981f6f9d93d009~mv2.png' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/603377_3bcf93636924427a91e22f570320f4cc~mv2.png' },
+        { type: 'text', text: 'On tapping Micro Inc (Community), Roshan gets the option to join as an applicant or as a counsellor. If joining as a counsellor, users first specify their relation with the company, then wait until the company verifies them — crucial to keep security breaches and deception in check.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_bd2d33fc57cf49e19340ac2e93054c5a~mv2.png' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_77e7eb66ffcc4f04a92aeffb918463f6~mv2.png' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_16830ea49dbf406488f3f27d3c29d518~mv2.png' },
+        { type: 'text', text: 'As Roshan taps on a recommendation notification, he\u2019s presented an AI-generated, ready-to-send, properly framed question, helping him go beyond his hesitation and interact actively.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/603377_decf1849d35444e5b4bf36bae382d7ee~mv2.png' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/603377_0c516e9b090c424ea497646402569f16~mv2.png' },
+        { type: 'text', text: 'The AI keeps analysing Roshan\u2019s moves and recommends questions in the form of notifications. The AI-generated quiz also helps Roshan stay engaged and updated constantly.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_605ee9fa39ce46118f35b8d2ba808c9c~mv2.png' },
+        { type: 'heading', text: 'Learnings' },
+        { type: 'text', text: 'In the first go, the secondary users (recruiters) were overlooked, leading to a vast gap while advancing with the project — especially while exploring solutions. To overcome the issue, a few steps back were taken to prepare the recruiter questionnaire and repeat the discovery and definition phases. The takeaway: to forge ahead for a better vision, we often have to look back and fix the mistakes we\u2019ve committed.' },
+      ] },
+    { id: 'p4', tag: 'Academic · Food & Culture', title: 'SwaDish — An Indian Snack Subscription App', summary: 'Designed an experience helping people find and subscribe to regional Indian snacks they can\u2019t easily get elsewhere.',
+      role: 'UX Designer (solo, academic)', timeline: 'Applied the 5 Elements of UX', team: 'Academic Solo Project',
+      problem: 'Customers craving specific regional snacks had to compromise on what was available or waste time searching, with no dedicated way to find and reorder them.',
+      process: 'Primary research via video-call interviews across Indian states, competitive analysis against usability heuristics, affinity mapping, personas, and journey maps comparing life before and after the app.',
+      solution: 'Mid-fi screens for a multi-brand snack stop, regional categorisation, a customisable snack box, subscriptions, and a "request order" flow for items that aren\u2019t yet in stock.',
+      outcome: 'Delivered a full mid-fidelity prototype and visual identity grounded in real user research across diverse Indian regions.',
+      stripeA: 'oklch(93% 0.03 60)', stripeB: 'oklch(97% 0.015 60)', imageLabel: 'SWADISH APP SCREENS — ADD SCREENSHOT',
+      bannerImage: 'https://static.wixstatic.com/media/0c9571_d14eb389542448fd9fc920cf7820f346~mv2.png',
+      bannerAccent: 'oklch(55% 0.19 60)', bannerText: 'oklch(18% 0.01 260)', bannerSub: 'oklch(30% 0.02 260 / 0.75)',
+      sections: [
+        { type: 'heading', text: 'Introduction' },
+        { type: 'text', text: '\u2018SwaDish\u2019 is an academic project aimed at designing an experience for an Indian Snack Subscription App.' },
+        { type: 'heading', text: 'The Process' },
+        { type: 'text', text: 'This project needed to be divided into blocks so that each section could be focused individually, and an intuitive experience could be designed as a whole. This is where the 5 Elements of UX come into play.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_dee4b6bddbf548f8868ca1c13ac12f18~mv2.png' },
+        { type: 'heading', text: 'Research Brief' },
+        { type: 'text', text: 'A thorough primary research was conducted through real-life observations and interviewing a group representing the target audience, along with a competitive analysis, following which interview briefs were drafted to draw better insights about the user and the concept. Primary research took the form of user interviews over video calls (due to the persisting COVID scenario), and competitive analysis was conducted through secondary research on competitors\u2019 websites. Inclusivity was maintained by incorporating interviewees from different Indian states with varied tastes, choices, and lifestyles.' },
+        { type: 'heading', text: 'Primary Research' },
+        { type: 'subheading', text: 'Observations' },
+        { type: 'text', text: 'As soon as I came across the topic, I started listing my day-to-day observations about snacks in India.' },
+        { type: 'list', items: [
+          'People in India tend to serve various snacks and sweets when somebody visits them.',
+          'Tea time with the family in the evening is mostly accompanied by snacks.',
+          'Get-togethers mandatorily have snacks and sweets in the course.',
+          'Certain snacks and sweets are deeply bound with particular festivals and religious occasions in India.',
+          'Fasting is a common ritual in India, and a few devotees specifically consume certain snacks (e.g. Makhana) and sweets during fasts.',
+          'Most Indians prefer taking snacks along with them while travelling.',
+          'Snack culture has carved its way as a stress buster and \u2018timepass\u2019 while watching movies or enjoying other entertainment.'
+        ] },
+        { type: 'list', items: [
+          'COVID-19 has prompted people to be more health- and hygiene-conscious.',
+          'Urban customers are inclined towards purchasing branded packed edibles.',
+          'Nowadays people are preferring national brands over regional brands.',
+          'Customers have developed brand awareness and brand loyalty.',
+          'Young customers are willing to try new dishes and flavours.',
+          'With a rapid, busier lifestyle, customers are looking for convenience food (ready-to-eat/ready-to-cook).',
+          'Customers are becoming digitally active.',
+          'Students or customers staying away from families prefer purchasing smaller packets.'
+        ] },
+        { type: 'subheading', text: 'Questionnaire' },
+        { type: 'text', text: 'The arrangement of the questions was done such that they don\u2019t make the interviewees uncomfortable to open up, refraining from bombarding them with heavy questions abruptly. The questions were aimed to understand the user\u2019s mindset, environment, culture, preferences, and challenges, among others, concerning the context.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_4dbc6a3327d94a5c8a088bffd180959c~mv2.png' },
+        { type: 'heading', text: 'Reports of the Interviewees\u2019 Responses' },
+        { type: 'text', text: 'The responses were categorized based on the interviewees\u2019 quotes, actions, thoughts, and emotions.' },
+        { type: 'imagerow', items: [
+          'https://static.wixstatic.com/media/0c9571_2e14811890244348b9a8b3398a19b6af~mv2.png',
+          'https://static.wixstatic.com/media/0c9571_d0b9e3c614a24c12abef7180d6355b09~mv2.png',
+          'https://static.wixstatic.com/media/0c9571_a3a7f0862100472cb23d8c28cd25db0a~mv2.png',
+          'uploads/Screenshot 2026-08-06 at 1.16.35 PM.png',
+          'uploads/Screenshot 2026-08-06 at 1.11.24 PM.png'
+        ] },
+        { type: 'heading', text: 'Competitive Analysis' },
+        { type: 'text', text: 'The competitors were studied based on Jacob\u2019s three usability heuristics: visibility of system status, recognise rather than recall, and aesthetic and minimalist design.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_017736b030d4434db17cada297eae0b2~mv2.png' },
+        { type: 'heading', text: 'Affinity Diagram' },
+        { type: 'text', text: 'From the primary research, the pain points were noted, and the ones with similar relationships were grouped together.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_7a7cac548b114e69af6e170cad40f004~mv2.png' },
+        { type: 'heading', text: 'Personas' },
+        { type: 'text', text: 'Personas were created to get a less abstract and more realistic image of the target users.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_dab0bd29a37b4e7f9f243916d3ecd64a~mv2.jpg' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_e8ce7c7e6b8d4b9aaa4371cffbb263c8~mv2.jpg' },
+        { type: 'heading', text: 'Priority Mapping' },
+        { type: 'text', text: 'All the pain points drawn from the interviews were synthesized, and finally they boiled down to four main problems. Hence, priority mapping was done before settling on a problem statement.' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_330d6ab9611f4670b85d55cae11ec236~mv2.png' },
+        { type: 'subheading', text: 'Why Availability?' },
+        { type: 'text', text: 'I decided to advance with \u2018availability problems\u2019, as that would take the least time among other options. \u2018Problems related to information\u2019 had already been taken care of by one of the competitors (Snackible), so there was no point in solving it.' },
+        { type: 'heading', text: 'Defining the Problem' },
+        { type: 'text', text: 'Our product/service will provide better availability of desired snacks, because of which customers have to either compromise with whatever is available or waste a lot of time searching for them. How might we build a product/service which can help customers get what they are looking for?' },
+        { type: 'heading', text: 'User Journey' },
+        { type: 'text', text: 'Below are two states which show the difference between Abhilash\u2019s journey of online snack purchases before the launch of SwaDish and after its launch.' },
+        { type: 'subheading', text: 'Journey Before SwaDish' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_7a65016ff0be4b9fa755ef94f1435ed3~mv2.png' },
+        { type: 'subheading', text: 'Journey After SwaDish' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_e280182ff1674c4986d073e4bf7b46c9~mv2.png' },
+        { type: 'heading', text: 'The User Flows' },
+        { type: 'text', text: 'The user flows for the primary goals of the app were then drafted.' },
+        { type: 'subheading', text: 'User Flow for Placing Order of a Snack' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_6e5eef70061341fd806d4766d1d3e58e~mv2.png' },
+        { type: 'subheading', text: 'User Flow for Placing Order of a Customized Snack Box' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_9bedd00232c545ce98bf922da8953199~mv2.png' },
+        { type: 'subheading', text: 'User Flow for Subscribing to an Item' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_fc3055a3427a4057acb76034206753d0~mv2.png' },
+        { type: 'heading', text: 'The Information Architecture' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_3d6e091b61a6454e8458596a6cc0362b~mv2.png' },
+        { type: 'heading', text: 'Visual Identity' },
+        { type: 'image', src: 'https://static.wixstatic.com/media/0c9571_621d921034314eb7bdacfa1b83508387~mv2.jpg' },
+        { type: 'plainimage', src: 'https://static.wixstatic.com/media/0c9571_59618c02bf0a46db84d07f4976c4b692~mv2.png' },
+        { type: 'heading', text: 'Designing the Screens' },
+        { type: 'text', text: 'Mid-fi prototype.' },
+        { type: 'subheading', text: 'Multi-brand Snack Stop' },
+        { type: 'text', text: 'To give the wand of choice into the hands of customers.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_1d1b3692179c4b168320971165b2b29b~mv2.png' },
+        { type: 'subheading', text: 'Regional Categorisation' },
+        { type: 'text', text: 'To bridge the gap between customers and their hometown taste.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_dedb17f1782446e79d990261026d5274~mv2.png' },
+        { type: 'subheading', text: 'Customisable Snack Box' },
+        { type: 'text', text: 'To let customers have free and open access to purchase only what they want.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_9f3c0f5c86114c39bd52151f0177bb46~mv2.png' },
+        { type: 'subheading', text: 'Add to Cart & Subscription' },
+        { type: 'text', text: 'The main action buttons of the app.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_a1e4cb75e6b640dca7cc95d402ddeac9~mv2.png' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_25e2c14705444074b333768cfe0526b6~mv2.png' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_47304f6a03fe4d73994cc7354a4fae9d~mv2.png' },
+        { type: 'subheading', text: 'Request Order' },
+        { type: 'text', text: 'The feature to request an order for unavailable items.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_ecb18c2ea4884a369caa8ff6e3f26e7c~mv2.png' },
+        { type: 'subheading', text: 'Request Sent' },
+        { type: 'text', text: 'Confirmation of the request sent.' },
+        { type: 'mobileshot', src: 'https://static.wixstatic.com/media/0c9571_01d0d3707d2e475d9267864a62cb18cc~mv2.png' }
+      ] }
+  ];
+
+  experienceData = [
+    { dates: 'Jul 2024 — Present', role: 'UX Designer 2', company: 'Verizon', description: 'Lead AI-powered customer support experiences within Verizon’s Optix (FiOS) platform, including a solution that contributed to an 11.76% reduction in Average Handle Time (AHT). Partner with PMs, Engineers, Researchers, and Content Designers on accessible, WCAG-aligned experiences, and lead Verizon India’s ‘Design Culture Champion’ initiative.' },
+    { dates: 'Dec 2022 — Jul 2024', role: 'UX Designer 1', company: 'Salesforce', description: 'Designed end-to-end pre-sales experiences for Salesforce CRM products — task flows, wireframes, interactive prototypes, and high-fidelity interfaces using SLDS. Partnered with PMs, Solution Engineers, Customer Success teams, and Developers across timezones, uncovering pain points through research and usability testing.' },
+    { dates: 'Apr 2022 — Dec 2022', role: 'UX Design Intern', company: 'Salesforce', description: 'Supported UX initiatives across Salesforce CRM products through wireframes, mockups, prototypes, and high-fidelity interfaces using SLDS, building a foundation in interaction design, information architecture, and accessibility through design critiques and usability testing.' }
+  ];
+
+  skillGroupsData = [
+    { label: 'Design Skills', items: ['UX Design', 'Product Design', 'Design Thinking', 'UX Strategy', 'Interaction Design', 'Visual Design', 'User Research', 'Data Analysis', 'Information Architecture', 'Journey Mapping', 'User Flows', 'Accessibility (WCAG)', 'Interactive Prototyping', 'Design Systems'] },
+    { label: 'Soft Skills', items: ['Cross-functional Collaboration', 'Stakeholder Management', 'Workshop Facilitation', 'Design Critique', 'Product Strategy', 'Navigating Ambiguity', 'Storytelling & Concept Pitching'] },
+    { label: 'Software Skills', items: ['Figma', 'FigJam', 'Figma AI', 'Adobe Creative Suite', 'Google Suite', 'Microsoft 365', 'Jira', 'ChatGPT', 'Claude', 'Miro'] }
+  ];
+
+  educationData = [
+    { degree: 'Bachelor’s in Design, MKSSS School of Fashion Technology', meta: 'Pune · 2018–2022' }
+  ];
+
+  recognitionsData = [
+    { title: 'Simple Thanks Award', meta: '2026', description: 'Recognized for leading Verizon’s Design Culture Champion initiative and driving UX collaboration across teams.' },
+    { title: 'Spotlight Award', meta: '2025', description: 'Awarded for outstanding contributions to Assisted Channel UX initiatives at Verizon.' },
+    { title: 'Spotlight Award', meta: '2024', description: 'Recognized for excellence in user experience design and cross-functional collaboration.' },
+    { title: '1st Runner-Up — OMS Global Innovation Competition', meta: '2022', description: 'Salesforce global innovation challenge for enterprise Order Management System solution.' }
+  ];
+
+  goHome = () => this.setState({ view: 'home', activeId: null });
+  goWorkList = () => this.setState({ view: 'work', activeId: null });
+  goAbout = () => this.setState({ view: 'about', activeId: null });
+  openProject = (id) => this.setState({ view: 'case', activeId: id });
+
+  renderVals() {
+    const accentColor = this.props.accentColor ?? 'oklch(55% 0.19 258)';
+    const heroTagline = this.props.heroTagline ?? "I'm a Full-Stack UX/Product Designer who believes great design makes life simpler. From strategy and research to polished interfaces, I transform complex problems into intuitive experiences that help people accomplish more with less effort. I'm driven by the opportunity to create meaningful impact—one thoughtful design decision at a time.";
+    const availableForWork = this.props.availableForWork ?? true;
+    const { view, activeId } = this.state;
+
+    const spans = ['span 7', 'span 5', 'span 4', 'span 8', 'span 12'];
+    const rots = [-1.2, 1, -0.8, 1.3, -0.5];
+    const projects = this.projectsData.map((p, i) => ({ ...p, open: () => this.openProject(p.id), span: spans[i % spans.length], rot: rots[i % rots.length] + 'deg', num: '0' + (i + 1) }));
+    let activeProject = projects.find(p => p.id === activeId) || projects[0];
+    if (activeProject.sections) {
+      const sectionList = activeProject.sections.map(s => ({
+        ...s,
+        isHeading: s.type === 'heading', isSubheading: s.type === 'subheading', isText: s.type === 'text',
+        isImage: s.type === 'image' && !!s.src, isSmallImage: s.type === 'smallimage' && !!s.src, isPlainImage: s.type === 'plainimage' && !!s.src, isImageRow: s.type === 'imagerow' && !!s.items, isDirectionCard: s.type === 'directioncard', isPhaseGrid: s.type === 'phasegrid', isMobileShot: s.type === 'mobileshot' && !!s.src, isList: s.type === 'list', isLogoPair: s.type === 'logopair' && !!s.srcA && !!s.srcB, isLogoTrio: s.type === 'logotrio' && !!s.srcA && !!s.srcB && !!s.srcC
+      }));
+      activeProject = { ...activeProject, hasSections: true, sectionList, hasBanner: !!activeProject.bannerImage };
+    } else {
+      activeProject = { ...activeProject, hasSections: false, sectionList: [] };
+    }
+    const skillGroups = this.skillGroupsData.map(g => ({ ...g, itemList: g.items }));
+
+    const underline = (match) => match ? accentColor : 'transparent';
+    const textColor = (match) => match ? 'oklch(18% 0.012 260)' : 'oklch(40% 0.01 260)';
+
+    return {
+      accentColor, heroTagline, availableForWork,
+      scrollRowLeft: this.scrollRowLeft, scrollRowRight: this.scrollRowRight,
+      isHome: view === 'home', isWorkList: view === 'work', isCaseStudy: view === 'case', isAbout: view === 'about',
+      homeUnderline: underline(view === 'home'), workUnderline: underline(view === 'work' || view === 'case'), aboutUnderline: underline(view === 'about'),
+      homeTextColor: textColor(view === 'home'), workTextColor: textColor(view === 'work' || view === 'case'), aboutTextColor: textColor(view === 'about'),
+      goHome: this.goHome, goWorkList: this.goWorkList, goAbout: this.goAbout,
+      projects, activeProject,
+      experience: this.experienceData,
+      education: this.educationData,
+      recognitions: this.recognitionsData,
+      skillGroups
+    };
+  }
+}
+</script>
+</body>
+</html>
